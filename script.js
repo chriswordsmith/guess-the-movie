@@ -1,8 +1,8 @@
 let poster = ""
-
+let score = 0
 let correctMovie = ""
 let incorrectMovie = ""
-
+let movie = ""
 
  function displayMovieInfo() {
 
@@ -14,13 +14,13 @@ let incorrectMovie = ""
      method: "GET",
    }).then(function(response) {
   console.log(response)
-  var movie = response.results[0]
+  movie = response.results[0]
     console.log(movie)
     poster = movie.backdrop_path
     var imageBox = $('<img>') 
     $('#poster').append(imageBox)
     imageBox.addClass("imagesq")
-    imageBox.attr('src', "https://image.tmdb.org/t/p/original/" + poster )
+    imageBox.attr('src', "https://image.tmdb.org/t/p/w500/" + poster )
   
     $("#movie-1").text(movie.title)
     
@@ -54,8 +54,36 @@ let incorrectMovie = ""
    });
 
  }
- displayMovieInfo()
 
+
+ displayMovieInfo()
+function checkingAnswer (){
+ $(".btn").on("click", function(){
+  //alert("button lcik")
+  let correctMovie = movie
+  console.log($(this))
+  if ($(this).hasClass("correct")){
+    alert("correct");
+    score++
+    console.log(score)
+  }
+  else {
+    alert("incorrect")
+  }
+  //check class of button, if correct then mark as correct and score++
+  // if not correct then wrong alert
+ }
+ )
+
+
+}
+checkingAnswer ()
+function displayScore(){
+  var scoreP = $('<p></p>') 
+  $('#scoreboard').append(scoreP)
+  $(scoreP).text(score)
+}
+displayScore() // needs to be in clear board function to make sure it updates correctly 
 //  // 
 //  function name() {
   
