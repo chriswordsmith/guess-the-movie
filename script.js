@@ -3,7 +3,7 @@ let score = 0
 let correctMovie = ""
 let incorrectMovie = ""
 let movie = ""
-
+let movRandomArr = []
  function displayMovieInfo() {
 
    var queryURL = "https://api.themoviedb.org/3/discover/movie?api_key=ca57f8d195555909f808f10b7ae17e17&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
@@ -14,7 +14,7 @@ let movie = ""
      method: "GET",
    }).then(function(response) {
   console.log(response)
-  movie = response.results[0]
+  movie = response.results[random20()]
     console.log(movie)
     poster = movie.backdrop_path
     var imageBox = $('<img>') 
@@ -22,6 +22,7 @@ let movie = ""
     imageBox.addClass("imagesq")
     imageBox.attr('src', "https://image.tmdb.org/t/p/w500/" + poster )
   
+
     $("#movie-1").text(movie.title)
     
     let randomMovieTwo = response.results[Math.floor(Math.random() * 20)];
@@ -105,16 +106,30 @@ function addButtons(){
 }
 addButtons()
 
-function wipeScreen(){
-  $('#buttons-section').innerhtml = ""
-  alert("screen wiped")
-}
-wipeScreen()
+// function wipeScreen(){
+//   $('#buttons-section').empty()
+//   alert("screen wiped")
+// }
+//wipeScreen()
 //  .if (condition) {
   
 //  } else {
   
 //  }
 
+function random20 (){
+ return Math.floor(Math.random() * 20)
+}
 
-//  Math.random()
+function fourUnique(){
+    while (movRandomArr.length < 4 ) {
+    var uniqueNum = random20()
+    if(movRandomArr.indexOf(uniqueNum) === -1) movRandomArr.push(uniqueNum)
+    
+  }
+  console.log(movRandomArr)
+}
+fourUnique()
+// while(arr.length < 8){
+//   var r = Math.floor(Math.random() * 100) + 1;
+//   if(arr.indexOf(r) === -1) arr.push(r);
