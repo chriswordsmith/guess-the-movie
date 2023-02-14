@@ -37,7 +37,7 @@ let movie = ""
     let randomMovieFour = response.results[Math.floor(Math.random() * 20)];
     let randomMovieFourTitle = randomMovieFour.title
     $("#movie-4").text(randomMovieFourTitle)
-
+    wipeScreen()
 // we'll need a bigger selection of movies AND do an operator for strict equality
 
 // randomising the button choices
@@ -89,7 +89,27 @@ displayScore() // needs to be in clear board function to make sure it updates co
   
 //  }
 
+function addButtons(){
+  alert("buttons activated")
+  var appbutton = $('<button></button>') 
+   $('#buttons-section').append(appbutton)
+   appbutton.attr('type', 'button')
+   appbutton.attr('class', 'btn')
+   appbutton.text('test')
+  /*
+      <button type="button" id="movie-1" class="btn btn-primary">Movie 1</button>
+<button type="button" id="movie-2" class="btn btn-secondary correct">Movie 2</button>
+<button type="button" id="movie-3" class="btn btn-success">Movie 3</button>
+<button type="button" id="movie-4" class="btn btn-danger">Movie 4</button>
+  */
+}
+addButtons()
 
+function wipeScreen(){
+  $('#buttons-section').innerhtml = ""
+  alert("screen wiped")
+}
+wipeScreen()
 //  .if (condition) {
   
 //  } else {
