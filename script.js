@@ -13,32 +13,43 @@ let movRandomArr = []
      url: queryURL,
      method: "GET",
    }).then(function(response) {
-  console.log(response)
-  movie = response.results[random20()]
-    console.log(movie)
-    poster = movie.backdrop_path
+
+    poster = response.results[movRandomArr[correctMovie]].backdrop_path
     var imageBox = $('<img>') 
     $('#poster').append(imageBox)
     imageBox.addClass("imagesq")
     imageBox.attr('src', "https://image.tmdb.org/t/p/w500/" + poster )
   
+    let randomMovieOne = response.results[movRandomArr[0]];
+    let randomMovieOneTitle = randomMovieOne.title
 
-    $("#movie-1").text(movie.title)
-    
-    let randomMovieTwo = response.results[Math.floor(Math.random() * 20)];
+    $("#movie-1").text(randomMovieOneTitle)
+    //    $("#movie-1").html("<button>").text(randomMovieOneTitle) SOMETHING LIKE THAT??
+    let randomMovieTwo = response.results[movRandomArr[1]];
     let randomMovieTwoTitle = randomMovieTwo.title
   
     $("#movie-2").text(randomMovieTwoTitle)
 
-    let randomMovieThree = response.results[Math.floor(Math.random() * 20)];
+    let randomMovieThree = response.results[movRandomArr[2]];
     let randomMovieThreeTitle = randomMovieThree.title
 
     $("#movie-3").text(randomMovieThreeTitle)
 
-    let randomMovieFour = response.results[Math.floor(Math.random() * 20)];
+    let randomMovieFour = response.results[movRandomArr[3]];
     let randomMovieFourTitle = randomMovieFour.title
     $("#movie-4").text(randomMovieFourTitle)
-    wipeScreen()
+
+console.log(movRandomArr[correctMovie])
+$('.btn').eq(correctMovie).addClass('correct')
+
+// NEXT STEPS FOR WEDNESDAY
+// REFRESH OF THE PAGE AFTER THE ATTEMPT
+// LOCAL STORAGE
+// WORK OUT LOGIC FOR REFRESHING THE SLIDE
+// MODAL?
+// LARGER SELECTION OF MOVIES
+// TIMER?
+
 // we'll need a bigger selection of movies AND do an operator for strict equality
 
 // randomising the button choices
@@ -50,19 +61,16 @@ let movRandomArr = []
 // if buttonnumber === correctMovie, score++
 // else alert WRONG
 
-
-
    });
 
  }
-
 
  displayMovieInfo()
 function checkingAnswer (){
  $(".btn").on("click", function(){
   //alert("button lcik")
-  let correctMovie = movie
-  console.log($(this))
+  // let correctMovie = movie
+  
   if ($(this).hasClass("correct")){
     alert("correct");
     score++
@@ -73,6 +81,7 @@ function checkingAnswer (){
   }
   //check class of button, if correct then mark as correct and score++
   // if not correct then wrong alert
+
  }
  )
 
@@ -83,6 +92,7 @@ function displayScore(){
   var scoreP = $('<p></p>') 
   $('#scoreboard').append(scoreP)
   $(scoreP).text(score)
+
 }
 displayScore() // needs to be in clear board function to make sure it updates correctly 
 //  // 
@@ -90,21 +100,21 @@ displayScore() // needs to be in clear board function to make sure it updates co
   
 //  }
 
-function addButtons(){
-  alert("buttons activated")
-  var appbutton = $('<button></button>') 
-   $('#buttons-section').append(appbutton)
-   appbutton.attr('type', 'button')
-   appbutton.attr('class', 'btn')
-   appbutton.text('test')
-  /*
-      <button type="button" id="movie-1" class="btn btn-primary">Movie 1</button>
-<button type="button" id="movie-2" class="btn btn-secondary correct">Movie 2</button>
-<button type="button" id="movie-3" class="btn btn-success">Movie 3</button>
-<button type="button" id="movie-4" class="btn btn-danger">Movie 4</button>
-  */
-}
-addButtons()
+// function addButtons(){
+//   alert("buttons activated")
+//   var appbutton = $('<button></button>') 
+//    $('#buttons-section').append(appbutton)
+//    appbutton.attr('type', 'button')
+//    appbutton.attr('class', 'btn')
+//    appbutton.text('test')
+//   /*
+//       <button type="button" id="movie-1" class="btn btn-primary">Movie 1</button>
+// <button type="button" id="movie-2" class="btn btn-secondary correct">Movie 2</button>
+// <button type="button" id="movie-3" class="btn btn-success">Movie 3</button>
+// <button type="button" id="movie-4" class="btn btn-danger">Movie 4</button>
+//   */
+// }
+// addButtons()
 
 // function wipeScreen(){
 //   $('#buttons-section').empty()
@@ -127,9 +137,18 @@ function fourUnique(){
     if(movRandomArr.indexOf(uniqueNum) === -1) movRandomArr.push(uniqueNum)
     
   }
-  console.log(movRandomArr)
+
 }
 fourUnique()
+
+function correctMovieChoice() {
+  return Math.floor(Math.random() * 4)
+}
+correctMovie = correctMovieChoice()
+console.log(movRandomArr[correctMovie])
+console.log(movRandomArr)
+
+
 // while(arr.length < 8){
 //   var r = Math.floor(Math.random() * 100) + 1;
 //   if(arr.indexOf(r) === -1) arr.push(r);
