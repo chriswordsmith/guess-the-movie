@@ -5,7 +5,7 @@ let incorrectMovie = ""
 let movie = ""
 let movRandomArr = []
  function displayMovieInfo() {
-
+  
    var queryURL = "https://api.themoviedb.org/3/discover/movie?api_key=ca57f8d195555909f808f10b7ae17e17&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
   
    // Creating an AJAX call for the specific movie button being clicked
@@ -78,9 +78,13 @@ function checkingAnswer (){
   }
   else {
     alert("incorrect")
+
   }
   //check class of button, if correct then mark as correct and score++
   // if not correct then wrong alert
+  wipeScreen()
+  // movRandomArr.empty() or movRandomArr = [] or moveRandomArr.clear() ? TRY THIS ON WEDNESDAY?
+  displayMovieInfo() 
 
  }
  )
@@ -116,11 +120,16 @@ displayScore() // needs to be in clear board function to make sure it updates co
 // }
 // addButtons()
 
-// function wipeScreen(){
-//   $('#buttons-section').empty()
-//   alert("screen wiped")
-// }
-//wipeScreen()
+function wipeScreen(){
+  $('#buttons-section').empty()
+  $('#poster').empty()
+  alert("screen wiped")
+}
+
+
+
+// LOCAL STORAGE HERE????
+
 //  .if (condition) {
   
 //  } else {
