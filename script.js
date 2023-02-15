@@ -80,9 +80,10 @@ function checkingAnswer (){
   }
   else {
     alert("incorrect")
-
   }
-  
+  wipeScreen()
+addButtons()
+displayMovieInfo()
   
 
   // console.log(numOfTurns + " number of loopes")
@@ -94,9 +95,8 @@ function checkingAnswer (){
  )
 }
 
-wipeScreen()
-addButtons()
-displayMovieInfo()
+// checkingAnswer ()
+
  
 //display question 
 // when question answered, clear screen and render new question
