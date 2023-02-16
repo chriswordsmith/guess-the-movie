@@ -6,7 +6,7 @@ let movie = "" //refactor this variable name?
 let movRandomArr = []
 var numOfTurns = 0
 
-$('#modal-section').addClass('hide')
+// $('#modal-section').addClass('hide')
 
 function displayMovieInfo() {
    
@@ -124,6 +124,8 @@ $(document).on('click', '.btn', function(){/// checking the answer. Task: give t
   if (numOfTurns === 1) {
   $('#game-section').remove()
   alert("It's over!")
+  $('.btn').attr()
+  // $('#modal-section').removeAttr('class')
   $('html').append('<body></body>')
    }
 
