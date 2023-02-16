@@ -2,13 +2,15 @@ let poster = ""
 let score = 0
 let correctMovie = ""
 let incorrectMovie = ""
-let movie = ""
+let movie = "" //refactor this variable name? 
 let movRandomArr = []
- function displayMovieInfo() {
-   alert('populating movie info')
+var numOfTurns = 0
+
+function displayMovieInfo() {
+   
    var queryURL = "https://api.themoviedb.org/3/discover/movie?api_key=ca57f8d195555909f808f10b7ae17e17&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
    fourUnique()
-   // Creating an AJAX call for the specific movie button being clicked
+   
    $.ajax({
      url: queryURL,
      method: "GET",
@@ -38,75 +40,42 @@ let movRandomArr = []
     let randomMovieFourTitle = randomMovieFour.title
     $("#movie-4").text(randomMovieFourTitle)
 
-console.log(movRandomArr[correctMovie])
 $('.btn').eq(correctMovie).addClass('correct')
-
-// NEXT STEPS FOR WEDNESDAY
-// REFRESH OF THE PAGE AFTER THE ATTEMPT
-// LOCAL STORAGE
-// WORK OUT LOGIC FOR REFRESHING THE SLIDE
-// MODAL?
-// LARGER SELECTION OF MOVIES
-// TIMER?
-
-// we'll need a bigger selection of movies AND do an operator for strict equality
-
-// randomising the button choices
-
-// logic of which movie number / button is correct 
-
-
-
-
 
    });
 
  }
 
-var numOfTurns = 0 
 function checkingAnswer (){
-    //check class of button, if correct then mark as correct and score++
-  // if not correct then wrong alert
-  $(document).on('click', '.btn', function(){
+  $(document).on('click', '.btn', function(){/// give the class a proper name 
 
-  
   if ($(this).hasClass("correct")){
     alert("correct");
     score++
-    console.log(score)
   }
   else {
     alert("incorrect")
   }
+  console.log('Your score:', score)
   wipeScreen()
+  updateScore()
 addButtons()
 displayMovieInfo()
-  
-
-  // console.log(numOfTurns + " number of loopes")
-  // numOfTurns++
-  
-
- 
 }
  )
 }
 
-
-
-
-
-function displayScore(){
-  var scoreP = $('<p></p>') 
-  $('#scoreboard').append(scoreP)
-  $(scoreP).text(score)
-
+function updateScore () {
+  $('.score-count').text(score)
 }
 
-
+function displayScore(){// LOCAL STORAGE HERE????
+  var scoreParagraph = $('<p></p>') 
+  $('#scoreboard').append(scoreParagraph)
+  $(scoreParagraph).text(score).addClass('score-count')
+}
 
 function addButtons(){
-  alert("buttons activated")
 
   for (let index = 0; index < 4; index++) {
     var appbutton = $('<button></button>') 
@@ -124,14 +93,9 @@ function wipeScreen(){
   $('#buttons-section').empty()
   $('#poster').empty()
   movRandomArr = []
-  fourUnique()
-  alert("screen wiped")
-  
+  // fourUnique()
   
 }
-
-
-// LOCAL STORAGE HERE????
 
 function random20 (){
  return Math.floor(Math.random() * 20)
@@ -143,7 +107,6 @@ function fourUnique(){
     if(movRandomArr.indexOf(uniqueNum) === -1) movRandomArr.push(uniqueNum)
     
   }
-
 }
 
 function correctMovieChoice() {
@@ -152,12 +115,7 @@ function correctMovieChoice() {
 
 correctMovie = correctMovieChoice() //assigning  function to var that will be used in displayMovieInfo()
 
-
-//initial screen on load 
-addButtons()
-displayMovieInfo()
+addButtons() //initial screen on load 
+displayMovieInfo() //initial screen on load 
 checkingAnswer()
-
-
-
- displayScore()
+displayScore()
