@@ -5,9 +5,9 @@ let incorrectMovie = ""
 let movie = ""
 let movRandomArr = []
  function displayMovieInfo() {
-  
+   alert('populating movie info')
    var queryURL = "https://api.themoviedb.org/3/discover/movie?api_key=ca57f8d195555909f808f10b7ae17e17&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
-  
+   fourUnique()
    // Creating an AJAX call for the specific movie button being clicked
    $.ajax({
      url: queryURL,
@@ -24,7 +24,6 @@ let movRandomArr = []
     let randomMovieOneTitle = randomMovieOne.title
 
     $("#movie-1").text(randomMovieOneTitle)
-    //    $("#movie-1").html("<button>").text(randomMovieOneTitle) SOMETHING LIKE THAT??
     let randomMovieTwo = response.results[movRandomArr[1]];
     let randomMovieTwoTitle = randomMovieTwo.title
   
@@ -56,20 +55,20 @@ $('.btn').eq(correctMovie).addClass('correct')
 
 // logic of which movie number / button is correct 
 
-// on.("click") 
 
-// if buttonnumber === correctMovie, score++
-// else alert WRONG
+
+
 
    });
 
  }
 
- displayMovieInfo()
+var numOfTurns = 0 
 function checkingAnswer (){
- $(".btn").on("click", function(){
-  //alert("button lcik")
-  // let correctMovie = movie
+    //check class of button, if correct then mark as correct and score++
+  // if not correct then wrong alert
+  $(document).on('click', '.btn', function(){
+
   
   if ($(this).hasClass("correct")){
     alert("correct");
@@ -78,63 +77,61 @@ function checkingAnswer (){
   }
   else {
     alert("incorrect")
-
   }
-  //check class of button, if correct then mark as correct and score++
-  // if not correct then wrong alert
   wipeScreen()
-  // movRandomArr.empty() or movRandomArr = [] or moveRandomArr.clear() ? TRY THIS ON WEDNESDAY?
-  displayMovieInfo() 
+addButtons()
+displayMovieInfo()
+  
 
- }
- )
+  // console.log(numOfTurns + " number of loopes")
+  // numOfTurns++
+  
 
-
+ 
 }
-checkingAnswer ()
+ )
+}
+
+
+
+
+
 function displayScore(){
   var scoreP = $('<p></p>') 
   $('#scoreboard').append(scoreP)
   $(scoreP).text(score)
 
 }
-displayScore() // needs to be in clear board function to make sure it updates correctly 
-//  // 
-//  function name() {
-  
-//  }
 
-// function addButtons(){
-//   alert("buttons activated")
-//   var appbutton = $('<button></button>') 
-//    $('#buttons-section').append(appbutton)
-//    appbutton.attr('type', 'button')
-//    appbutton.attr('class', 'btn')
-//    appbutton.text('test')
-//   /*
-//       <button type="button" id="movie-1" class="btn btn-primary">Movie 1</button>
-// <button type="button" id="movie-2" class="btn btn-secondary correct">Movie 2</button>
-// <button type="button" id="movie-3" class="btn btn-success">Movie 3</button>
-// <button type="button" id="movie-4" class="btn btn-danger">Movie 4</button>
-//   */
-// }
-// addButtons()
+
+
+function addButtons(){
+  alert("buttons activated")
+
+  for (let index = 0; index < 4; index++) {
+    var appbutton = $('<button></button>') 
+    $('#buttons-section').append(appbutton)
+    appbutton.attr('type', 'button')
+    appbutton.attr('class', 'btn')
+    var buttonnumber = index + 1
+    appbutton.attr('id','movie-'+ buttonnumber)
+    
+  }
+
+}
 
 function wipeScreen(){
   $('#buttons-section').empty()
   $('#poster').empty()
+  movRandomArr = []
+  fourUnique()
   alert("screen wiped")
+  
+  
 }
 
 
-
 // LOCAL STORAGE HERE????
-
-//  .if (condition) {
-  
-//  } else {
-  
-//  }
 
 function random20 (){
  return Math.floor(Math.random() * 20)
@@ -148,16 +145,19 @@ function fourUnique(){
   }
 
 }
-fourUnique()
 
 function correctMovieChoice() {
   return Math.floor(Math.random() * 4)
 }
-correctMovie = correctMovieChoice()
-console.log(movRandomArr[correctMovie])
-console.log(movRandomArr)
+
+correctMovie = correctMovieChoice() //assigning  function to var that will be used in displayMovieInfo()
 
 
-// while(arr.length < 8){
-//   var r = Math.floor(Math.random() * 100) + 1;
-//   if(arr.indexOf(r) === -1) arr.push(r);
+//initial screen on load 
+addButtons()
+displayMovieInfo()
+checkingAnswer()
+
+
+
+ displayScore()
