@@ -6,6 +6,8 @@ let movie = "" //refactor this variable name?
 let movRandomArr = []
 var numOfTurns = 0
 
+$('#modal-section').addClass('hide')
+
 function displayMovieInfo() {
    
    var queryURL = "https://api.themoviedb.org/3/discover/movie?api_key=ca57f8d195555909f808f10b7ae17e17&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
@@ -46,23 +48,8 @@ $('.btn').eq(correctMovie).addClass('correct')
 
  }
 
-function checkingAnswer (){
-  $(document).on('click', '.btn', function(){/// give the class a proper name 
 
-  if ($(this).hasClass("correct")){
-    alert("correct");
-    score++
-  }
-  else {
-    alert("incorrect")
-  }
-  console.log('Your score:', score)
-  wipeScreen()
-  updateScore()
-addButtons()
-displayMovieInfo()
-}
- )
+function countTurns () {
 }
 
 function updateScore () {
@@ -113,9 +100,37 @@ function correctMovieChoice() {
   return Math.floor(Math.random() * 4)
 }
 
-correctMovie = correctMovieChoice() //assigning  function to var that will be used in displayMovieInfo()
+correctMovie = correctMovieChoice() //assigning function to var that will be used in displayMovieInfo()
 
 addButtons() //initial screen on load 
 displayMovieInfo() //initial screen on load 
-checkingAnswer()
-displayScore()
+displayScore() 
+
+$(document).on('click', '.btn', function(){/// checking the answer. Task: give the class a proper name
+
+  if ($(this).hasClass("correct")){
+    alert("correct");
+    score++
+  }
+  else {
+    alert("incorrect")
+  }
+  console.log('Your score:', score)
+  wipeScreen()
+  updateScore()
+  numOfTurns++
+  console.log(numOfTurns)
+  
+  if (numOfTurns === 1) {
+  $('#game-section').remove()
+  alert("It's over!")
+  $('html').append('<body></body>')
+   }
+
+   addButtons() // second loop load / render
+  displayMovieInfo() // second loop load / render
+}
+ )
+
+
+ 
