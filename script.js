@@ -7,7 +7,7 @@ let movRandomArr = []
  function displayMovieInfo() {
    alert('populating movie info')
    var queryURL = "https://api.themoviedb.org/3/discover/movie?api_key=ca57f8d195555909f808f10b7ae17e17&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
-  
+   fourUnique()
    // Creating an AJAX call for the specific movie button being clicked
    $.ajax({
      url: queryURL,
@@ -62,15 +62,12 @@ $('.btn').eq(correctMovie).addClass('correct')
    });
 
  }
-//initial screen on load 
-addButtons()
-displayMovieInfo()
- checkingAnswer ()
+
 var numOfTurns = 0 
 function checkingAnswer (){
     //check class of button, if correct then mark as correct and score++
   // if not correct then wrong alert
- $(".btn").on("click", function(){
+  $(document).on('click', '.btn', function(){
 
   
   if ($(this).hasClass("correct")){
@@ -95,21 +92,7 @@ displayMovieInfo()
  )
 }
 
-// checkingAnswer ()
 
- 
-//display question 
-// when question answered, clear screen and render new question
-
-
-
- //on click of a button, changes score, wipes sceen ,and reloads info
- 
-// while (numOfTurns < 5) {
-//   checkingAnswer();
-//   console.log(numOfTurns + " number of loopes")
-//   numOfTurns++
-// }
 
 
 
@@ -119,11 +102,8 @@ function displayScore(){
   $(scoreP).text(score)
 
 }
-displayScore() // needs to be in clear board function to make sure it updates correctly 
-//  // 
-//  function name() {
-  
-//  }
+
+
 
 function addButtons(){
   alert("buttons activated")
@@ -151,15 +131,7 @@ function wipeScreen(){
 }
 
 
-
-
 // LOCAL STORAGE HERE????
-
-//  .if (condition) {
-  
-//  } else {
-  
-//  }
 
 function random20 (){
  return Math.floor(Math.random() * 20)
@@ -173,13 +145,19 @@ function fourUnique(){
   }
 
 }
-fourUnique()
 
 function correctMovieChoice() {
   return Math.floor(Math.random() * 4)
 }
-correctMovie = correctMovieChoice()
-console.log(movRandomArr[correctMovie])
-console.log(movRandomArr)
+
+correctMovie = correctMovieChoice() //assigning  function to var that will be used in displayMovieInfo()
 
 
+//initial screen on load 
+addButtons()
+displayMovieInfo()
+checkingAnswer()
+
+
+
+ displayScore()
