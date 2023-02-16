@@ -68,7 +68,8 @@ function addButtons(){
     var appbutton = $('<button></button>') 
     $('#buttons-section').append(appbutton)
     appbutton.attr('type', 'button')
-    appbutton.attr('class', 'btn')
+    appbutton.attr('class', 'btn question-buttons btn-primary')
+
     var buttonnumber = index + 1
     appbutton.attr('id','movie-'+ buttonnumber)
     
@@ -106,7 +107,7 @@ addButtons() //initial screen on load
 displayMovieInfo() //initial screen on load 
 displayScore() 
 
-$(document).on('click', '.btn', function(){/// checking the answer. Task: give the class a proper name
+$(document).on('click', '.question-buttons', function(){/// checking the answer. Task: give the class a proper name
 
   if ($(this).hasClass("correct")){
     alert("correct");
@@ -121,18 +122,33 @@ $(document).on('click', '.btn', function(){/// checking the answer. Task: give t
   numOfTurns++
   console.log(numOfTurns)
   
-  if (numOfTurns === 1) {
-  $('#game-section').remove()
+  if (numOfTurns == 3) {
+  $('#game-section').hide()
   alert("It's over!")
-  $('.btn').attr()
-  // $('#modal-section').removeAttr('class')
-  $('html').append('<body></body>')
-   }
+    $('.modal-body').text("Your score: " + score)
+  $('#exampleModal').modal('show')
+
+  localStorage.setItem(0, score)
+  var finalScore = localStorage.key(0)
+  console.log("saved score " + finalScore);
+  $('#localstoresave').on('click', function(){
+    var highscorelist = $('#highscore').html('<p></p>')
+    highscorelist.text("final score = " + finalScore)
+  }
+    )}
+
+ 
+  
+  // $('html').append('<body></body>')
+  //SAVE score to local storage and displays 
+
+   
 
    addButtons() // second loop load / render
   displayMovieInfo() // second loop load / render
-}
+} 
  )
 
+ 
 
  
