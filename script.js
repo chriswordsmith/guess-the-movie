@@ -74,7 +74,7 @@ function countTurns () {
 }
 
 function updateScore () {
-  $('.score-count').text(score)
+  $('.score-count').text("Your score : " + score)
 }
 
 function displayScore(){
@@ -158,7 +158,7 @@ $(document).on('click', '.question-buttons', function(){/// checking the answer.
     highscorelist.text("final score = " + finalScore)
   }
     )}
-    
+
 
  
   
