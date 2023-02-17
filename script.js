@@ -2,11 +2,32 @@ let poster = ""
 let score = 0
 let correctMovie = ""
 let incorrectMovie = ""
-let movie = "" //refactor this variable name? 
+let movie = "" 
 let movRandomArr = []
 var numOfTurns = 0
 
-// $('#modal-section').addClass('hide')
+function displayRandomGif(){
+
+
+  var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=SJgex9zQLzI4Jpbv0xiXHpX13uXElbTO&tag=cats&rating=pg";
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+
+    .then(function(response) {
+
+      var imageUrl = response.data.images.original.url;
+
+      var catImage = $("<img>");
+
+      catImage.attr("src", imageUrl);
+      catImage.attr("alt", "cat image");
+
+      $(".modal-header").append(catImage);
+    });
+}
 
 function displayMovieInfo() {
    
@@ -21,7 +42,7 @@ function displayMovieInfo() {
     poster = response.results[movRandomArr[correctMovie]].backdrop_path
     var imageBox = $('<img>') 
     $('#poster').append(imageBox)
-    imageBox.addClass("imagesq")
+    imageBox.addClass("imagesq d-flex justify-content-center")
     imageBox.attr('src', "https://image.tmdb.org/t/p/w500/" + poster )
   
     let randomMovieOne = response.results[movRandomArr[0]];
@@ -56,10 +77,10 @@ function updateScore () {
   $('.score-count').text(score)
 }
 
-function displayScore(){// LOCAL STORAGE HERE????
+function displayScore(){
   var scoreParagraph = $('<p></p>') 
   $('#scoreboard').append(scoreParagraph)
-  $(scoreParagraph).text(score).addClass('score-count')
+  $(scoreParagraph).text("Your score : " + score).addClass('score-count')
 }
 
 function addButtons(){
@@ -81,7 +102,7 @@ function wipeScreen(){
   $('#buttons-section').empty()
   $('#poster').empty()
   movRandomArr = []
-  // fourUnique()
+
   
 }
 
@@ -104,7 +125,7 @@ function correctMovieChoice() {
 correctMovie = correctMovieChoice() //assigning function to var that will be used in displayMovieInfo()
 
 addButtons() //initial screen on load 
-displayMovieInfo() //initial screen on load 
+displayMovieInfo() //initial screen on load
 displayScore() 
 
 $(document).on('click', '.question-buttons', function(){/// checking the answer. Task: give the class a proper name
@@ -125,7 +146,8 @@ $(document).on('click', '.question-buttons', function(){/// checking the answer.
   if (numOfTurns == 3) {
   $('#game-section').hide()
   alert("It's over!")
-    $('.modal-body').text("Your score: " + score)
+  displayRandomGif() 
+  $('.modal-body').text("Your score: " + score)
   $('#exampleModal').modal('show')
 
   localStorage.setItem(0, score)
@@ -136,11 +158,11 @@ $(document).on('click', '.question-buttons', function(){/// checking the answer.
     highscorelist.text("final score = " + finalScore)
   }
     )}
+    
 
  
   
-  // $('html').append('<body></body>')
-  //SAVE score to local storage and displays 
+
 
    
 
